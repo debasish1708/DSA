@@ -97,14 +97,29 @@ public class javaClass48 {
         PriorityQueue<Pair> pq=new PriorityQueue<>((a,b)->a.cost-b.cost);
         pq.add(new Pair(0, 0));
         int cost=0;
+
+        // for storing edges graph
+        ArrayList<Edge> edge=new ArrayList<>();
+
         while(!pq.isEmpty()){
             Pair curr=pq.remove();
             if(!vis[curr.vertex]){
                 vis[curr.vertex]=true;
                 cost+=curr.cost;
-                for(Edge e:graph[curr.vertex])
+                for(Edge e:graph[curr.vertex]){
+                    // edge[e.src].add((new Edge(e.src, e.dest, e.wt)));
                     pq.add(new Pair(e.dest, e.wt));
+                }
+                Pair small=pq.peek();
+                edge.add(new Edge(curr.vertex, small.vertex, small.cost));
             }
+        }
+        System.out.println();
+        for(Edge e:edge){
+            int u=e.src;
+            int v=e.dest;
+            int wt=e.wt;
+            System.out.println(u+" "+v+" "+wt);
         }
 
         System.out.println("minimu spanning tree cost: "+cost);

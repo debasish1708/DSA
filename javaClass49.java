@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class javaClass49 {
@@ -21,6 +22,14 @@ public class javaClass49 {
             this.vertex=vertex;
             this.cost=cost;
             this.stops=stops;
+        }
+    }
+    static class Pair{
+        int vertex;
+        int cost;
+        public Pair(int vertex, int cost) {
+            this.vertex = vertex;
+            this.cost = cost;
         }
     }
     public static void createGraph(ArrayList<Edge>[] graph){
@@ -53,6 +62,26 @@ public class javaClass49 {
 
         return dist[dst]!=Integer.MAX_VALUE?dist[dst]:-1;
     }
+
+    // prim's algorithm
+    public static int connectCities(int[][] cities){
+        PriorityQueue<Pair> pq=new PriorityQueue<>((a,b)->a.cost-b.cost);
+        pq.add(new Pair(0, 0));
+        boolean[] vis=new boolean[cities.length];
+        int cost=0;
+        while(!pq.isEmpty()){
+            Pair curr=pq.remove();
+            if(!vis[curr.vertex]){
+                vis[curr.vertex]=true;
+                cost+=curr.cost;
+                for(int i=0;i<cities[curr.vertex].length;i++){
+                    if(cities[curr.vertex][i]!=0) pq.add(new Pair(i, cities[curr.vertex][i]));
+                }
+            }
+        }
+        return cost;
+    }
+    
     @SuppressWarnings("unchecked")
     public static void main(String[] args) {
         // cheapest flights with in k stops
@@ -60,5 +89,12 @@ public class javaClass49 {
          createGraph(graph);
          int ans=cheapestFlight(graph,0,3,1);
          System.out.println("cheapest cost of flight in k stops: "+ans);
+         // connect all cities at minimum cost
+         int[][] cities={{0,1,2,3,4},
+                         {1,0,5,0,7},
+                         {2,5,0,6,0},
+                         {3,0,6,0,0},
+                         {4,7,0,0,0}};
+        System.out.println(connectCities(cities));
     }
 }

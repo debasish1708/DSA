@@ -48,9 +48,9 @@ public class DisjointSet {
 
     private static int kruskalAlgorithm(List<Edge> edges,int V) {
         // sort edges based on weight
-        edges.sort((a, b) -> a.wt - b.wt);
+        edges.sort((a, b) -> a.wt - b.wt); // O(E log E)
         int mstCost=0,count=0;
-        for(int i=0;count<V-1;i++){
+        for(int i=0;count<V-1;i++){ // O(V)
             Edge e=edges.get(i);
             int parA= find(e.src);
             int parB= find(e.dest);

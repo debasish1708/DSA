@@ -1,4 +1,4 @@
-
+import java.util.Arrays;
 
 public class javaClass50 {
 
@@ -29,6 +29,12 @@ public class javaClass50 {
         dp[i]=(dp[i-1]+dp[i-2])%mod;
         return dp[n];
     }
+
+    private static int countWays(int n,int[] dp) {
+        if(n==0||n==1||n==2||n==3)return n;
+        if(dp[n]!=-1)return dp[n];
+        return dp[n]=(countWays(n-1,dp)+countWays(n-2,dp))%1000000007;
+    }
     
     public static void main(String[] args) {
         // Dynamic Programming
@@ -41,5 +47,12 @@ public class javaClass50 {
         System.out.println();System.out.println();
         for(int i=0;i<=50;i++)
         System.out.print(fib(i)+" ");
+        System.out.println();
+        
+
+        System.out.println("--------------------");
+        int[] dp=new int[6];
+        Arrays.fill(dp, -1);
+        System.out.println(countWays(5, dp)); // same as per previous tabuailazation
     }
 }

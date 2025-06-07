@@ -17,6 +17,6 @@ public class Knapsack {
         int[] val = {1, 4, 5, 7};
         int W = 7;
 
-        System.out.println(knapsackRec(wt, val, W, 4));
+        System.out.println(knapsackRec(wt, val, W, 4)); // not optimal solution
     }
 }
